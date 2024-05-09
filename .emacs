@@ -69,8 +69,15 @@
 
 (require 'compile)
 
-;; Disable auto indent...
-(electric-indent-mode 0)
+;; Indenting
+(setq-default tab-width 4
+              indent-tabs-mode nil)
+(electric-indent-mode 0) ;; Auto-indent disabling.
+
+;; C/C++
+(setq c-basic-offset 4)
+(c-set-offset 'substatement-open 0) ;; Disable ident in opening braces.
+(add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
 
 ;; Define a function to parse Visual Studio linker errors
 ;; DOES NOT WORK ATM, LET'S TRY SOMETHING ELSE LATER !
@@ -79,13 +86,6 @@
 ;;  (add-to-list 'compilation-error-regexp-alist '("^LINK[[:blank:]]*: fatal error[[:blank:]]*LNK[[:blank:]]*\\([0-9]+\\)[[:blank:]]*\\([^(\n]+\\)(\\([0-9]+\\)) : \\(.*\\)$" 2 3 nil 1 4)))
 ;; Add the function to compilation mode hook
 ;;(add-hook 'compilation-mode-hook #'parse-vs-linker-error)
-
-(setq c-basic-offset 4
-      tab-width 4)
-(add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
-
-(setq-default indent-tabs-mode nil)
-(setq-default tab-width 4)
 
 ;; I don't want any default compile-command... it's boring to delete it every time I first run compile-command.
 (setq compile-command "")
